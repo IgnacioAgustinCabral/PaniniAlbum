@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.Test;
 
@@ -100,25 +102,49 @@ public class PaniniTest {
 		String grupo2 = "G";
 		String seleccion2 = "Brasil";
 		String jugador2 = "Neymar";
-		Double precio2 = 200000000.00;
+		Double precio2 = 150.00;
 
 		Integer numeroFigurita4 = 11;
 		String grupo4 = "G";
 		String seleccion4 = "Brasil";
 		String jugador4 = "Richarlison";
-		Double precio4 = 200000000.00;
+		Double precio4 = 200.00;
 
 		Integer numeroFigurita3 = 1;
 		String grupo3 = "C";
 		String seleccion3 = "Argentina";
 		String jugador3 = "Martinez";
-		Double precio3 = 200000000.00;
+		Double precio3 = 150.00;
 
 		Integer numeroFigurita1 = 7;
 		String grupo1 = "C";
 		String seleccion1 = "Argentina";
 		String jugador1 = "Lo Celso";
-		Double precio1 = 300000000.00;
+		Double precio1 = 120.00;
+
+		Integer numeroFigurita5 = 7;
+		String grupo5 = "E";
+		String seleccion5 = "Inglaterra";
+		String jugador5 = "Harry Kane";
+		Double precio5 = 100.00;
+
+		Integer numeroFigurita6 = 7;
+		String grupo6 = "F";
+		String seleccion6 = "Belgica";
+		String jugador6 = "De Bruyne";
+		Double precio6 = 100.00;
+
+		Integer numeroFigurita7 = 7;
+		String grupo7 = "A";
+		String seleccion7 = "Uruguay";
+		String jugador7 = "Luis Suarez";
+		Double precio7 = 90.00;
+
+		Integer numeroFigurita8 = 7;
+		String grupo8 = "C";
+		String seleccion8 = "Mexico";
+		String jugador8 = "Chicarito";
+		Double precio8 = 80.00;
 
 		Figurita figurita1 = new Figurita(numeroFigurita1, grupo1, seleccion1, jugador1, precio1);
 
@@ -127,6 +153,14 @@ public class PaniniTest {
 		Figurita figurita3 = new Figurita(numeroFigurita3, grupo3, seleccion3, jugador3, precio3);
 
 		Figurita figurita4 = new Figurita(numeroFigurita4, grupo4, seleccion4, jugador4, precio4);
+
+		Figurita figurita5 = new Figurita(numeroFigurita5, grupo5, seleccion5, jugador5, precio5);
+
+		Figurita figurita6 = new Figurita(numeroFigurita6, grupo6, seleccion6, jugador6, precio6);
+
+		Figurita figurita7 = new Figurita(numeroFigurita7, grupo7, seleccion7, jugador7, precio7);
+
+		Figurita figurita8 = new Figurita(numeroFigurita8, grupo8, seleccion8, jugador8, precio8);
 
 		try {
 			user.agregarFigurita(figurita1);
@@ -152,7 +186,29 @@ public class PaniniTest {
 			e.printStackTrace();
 		}
 
-		Integer esperado = 4;
+		try {
+			user.agregarFigurita(figurita5);
+		} catch (CodigoExistente e) {
+			e.printStackTrace();
+		}
+		try {
+			user.agregarFigurita(figurita6);
+		} catch (CodigoExistente e) {
+			e.printStackTrace();
+		}
+		try {
+			user.agregarFigurita(figurita7);
+		} catch (CodigoExistente e) {
+			e.printStackTrace();
+		}
+
+		try {
+			user.agregarFigurita(figurita8);
+		} catch (CodigoExistente e) {
+			e.printStackTrace();
+		}
+
+		Integer esperado = 8;
 		Integer actual = ((UsuarioFinal) user).getStockDeFiguritas().size();
 
 		assertEquals(esperado, actual);
@@ -496,7 +552,7 @@ public class PaniniTest {
 
 	}
 
-	@Test(expected=FiguritaNoDisponible.class)
+	@Test(expected = FiguritaNoDisponible.class)
 	public void queNoSePuedaIntercambiarUnaFiguritaDeUnUsuarioQueYaLaHayaPegado() throws FiguritaNoDisponible {
 		String nombre1 = "Pedro";
 		Usuario user1 = new UsuarioFinal(nombre1);
@@ -584,5 +640,258 @@ public class PaniniTest {
 		/////// INTERCAMBIO///////
 		/// EL USUARIO 1 QUIERE LA FIGURITA DE USUARIO 2///
 		((UsuarioFinal) user1).intercambio((UsuarioFinal) user2, figurita4);
+	}
+
+	@Test
+	public void filter() {
+		String nombre = "Pedro";
+		Usuario user = new UsuarioFinal(nombre);
+
+		Integer numeroFigurita2 = 10;
+		String grupo2 = "G";
+		String seleccion2 = "Brasil";
+		String jugador2 = "Neymar";
+		Double precio2 = 150.00;
+
+		Integer numeroFigurita4 = 11;
+		String grupo4 = "G";
+		String seleccion4 = "Brasil";
+		String jugador4 = "Richarlison";
+		Double precio4 = 200.00;
+
+		Integer numeroFigurita3 = 1;
+		String grupo3 = "C";
+		String seleccion3 = "Argentina";
+		String jugador3 = "Martinez";
+		Double precio3 = 150.00;
+
+		Integer numeroFigurita1 = 7;
+		String grupo1 = "C";
+		String seleccion1 = "Argentina";
+		String jugador1 = "Lo Celso";
+		Double precio1 = 120.00;
+
+		Integer numeroFigurita5 = 7;
+		String grupo5 = "E";
+		String seleccion5 = "Inglaterra";
+		String jugador5 = "Harry Kane";
+		Double precio5 = 100.00;
+
+		Integer numeroFigurita6 = 7;
+		String grupo6 = "F";
+		String seleccion6 = "Belgica";
+		String jugador6 = "De Bruyne";
+		Double precio6 = 100.00;
+
+		Integer numeroFigurita7 = 7;
+		String grupo7 = "A";
+		String seleccion7 = "Uruguay";
+		String jugador7 = "Luis Suarez";
+		Double precio7 = 90.00;
+
+		Integer numeroFigurita8 = 7;
+		String grupo8 = "C";
+		String seleccion8 = "Mexico";
+		String jugador8 = "Chicarito";
+		Double precio8 = 80.00;
+
+		Figurita figurita1 = new Figurita(numeroFigurita1, grupo1, seleccion1, jugador1, precio1);
+
+		Figurita figurita2 = new Figurita(numeroFigurita2, grupo2, seleccion2, jugador2, precio2);
+
+		Figurita figurita3 = new Figurita(numeroFigurita3, grupo3, seleccion3, jugador3, precio3);
+
+		Figurita figurita4 = new Figurita(numeroFigurita4, grupo4, seleccion4, jugador4, precio4);
+
+		Figurita figurita5 = new Figurita(numeroFigurita5, grupo5, seleccion5, jugador5, precio5);
+
+		Figurita figurita6 = new Figurita(numeroFigurita6, grupo6, seleccion6, jugador6, precio6);
+
+		Figurita figurita7 = new Figurita(numeroFigurita7, grupo7, seleccion7, jugador7, precio7);
+
+		Figurita figurita8 = new Figurita(numeroFigurita8, grupo8, seleccion8, jugador8, precio8);
+
+		try {
+			user.agregarFigurita(figurita1);
+		} catch (CodigoExistente e) {
+			e.printStackTrace();
+		}
+
+		try {
+			user.agregarFigurita(figurita2);
+		} catch (CodigoExistente e) {
+			e.printStackTrace();
+		}
+
+		try {
+			user.agregarFigurita(figurita3);
+		} catch (CodigoExistente e) {
+			e.printStackTrace();
+		}
+
+		try {
+			user.agregarFigurita(figurita4);
+		} catch (CodigoExistente e) {
+			e.printStackTrace();
+		}
+
+		try {
+			user.agregarFigurita(figurita5);
+		} catch (CodigoExistente e) {
+			e.printStackTrace();
+		}
+		try {
+			user.agregarFigurita(figurita6);
+		} catch (CodigoExistente e) {
+			e.printStackTrace();
+		}
+		try {
+			user.agregarFigurita(figurita7);
+		} catch (CodigoExistente e) {
+			e.printStackTrace();
+		}
+
+		try {
+			user.agregarFigurita(figurita8);
+		} catch (CodigoExistente e) {
+			e.printStackTrace();
+		}
+
+		// me traigo el stock de figuritas
+		List<Figurita> figuritas = ((UsuarioFinal) user).getStockDeFiguritas();
+
+		List<Figurita> grupoC = figuritas.stream().filter((f) -> f.getGrupo().startsWith("C"))
+				.collect(Collectors.toList());
+
+		// recorro la nueva lista y muestro el nombre de jugadores
+		grupoC.forEach((x) -> System.out.println(x.getJugador()));
+	}
+
+	@Test
+	public void map() {
+
+		String nombre = "Pedro";
+		Usuario user = new UsuarioFinal(nombre);
+
+		Integer numeroFigurita2 = 10;
+		String grupo2 = "G";
+		String seleccion2 = "Brasil";
+		String jugador2 = "Neymar";
+		Double precio2 = 150.00;
+
+		Integer numeroFigurita4 = 11;
+		String grupo4 = "G";
+		String seleccion4 = "Brasil";
+		String jugador4 = "Richarlison";
+		Double precio4 = 200.00;
+
+		Integer numeroFigurita3 = 1;
+		String grupo3 = "C";
+		String seleccion3 = "Argentina";
+		String jugador3 = "Martinez";
+		Double precio3 = 150.00;
+
+		Integer numeroFigurita1 = 7;
+		String grupo1 = "C";
+		String seleccion1 = "Argentina";
+		String jugador1 = "Lo Celso";
+		Double precio1 = 120.00;
+
+		Integer numeroFigurita5 = 7;
+		String grupo5 = "E";
+		String seleccion5 = "Inglaterra";
+		String jugador5 = "Harry Kane";
+		Double precio5 = 100.00;
+
+		Integer numeroFigurita6 = 7;
+		String grupo6 = "F";
+		String seleccion6 = "Belgica";
+		String jugador6 = "De Bruyne";
+		Double precio6 = 100.00;
+
+		Integer numeroFigurita7 = 7;
+		String grupo7 = "A";
+		String seleccion7 = "Uruguay";
+		String jugador7 = "Luis Suarez";
+		Double precio7 = 90.00;
+
+		Integer numeroFigurita8 = 7;
+		String grupo8 = "C";
+		String seleccion8 = "Mexico";
+		String jugador8 = "Chicarito";
+		Double precio8 = 80.00;
+
+		Figurita figurita1 = new Figurita(numeroFigurita1, grupo1, seleccion1, jugador1, precio1);
+
+		Figurita figurita2 = new Figurita(numeroFigurita2, grupo2, seleccion2, jugador2, precio2);
+
+		Figurita figurita3 = new Figurita(numeroFigurita3, grupo3, seleccion3, jugador3, precio3);
+
+		Figurita figurita4 = new Figurita(numeroFigurita4, grupo4, seleccion4, jugador4, precio4);
+
+		Figurita figurita5 = new Figurita(numeroFigurita5, grupo5, seleccion5, jugador5, precio5);
+
+		Figurita figurita6 = new Figurita(numeroFigurita6, grupo6, seleccion6, jugador6, precio6);
+
+		Figurita figurita7 = new Figurita(numeroFigurita7, grupo7, seleccion7, jugador7, precio7);
+
+		Figurita figurita8 = new Figurita(numeroFigurita8, grupo8, seleccion8, jugador8, precio8);
+
+		try {
+			user.agregarFigurita(figurita1);
+		} catch (CodigoExistente e) {
+			e.printStackTrace();
+		}
+
+		try {
+			user.agregarFigurita(figurita2);
+		} catch (CodigoExistente e) {
+			e.printStackTrace();
+		}
+
+		try {
+			user.agregarFigurita(figurita3);
+		} catch (CodigoExistente e) {
+			e.printStackTrace();
+		}
+
+		try {
+			user.agregarFigurita(figurita4);
+		} catch (CodigoExistente e) {
+			e.printStackTrace();
+		}
+
+		try {
+			user.agregarFigurita(figurita5);
+		} catch (CodigoExistente e) {
+			e.printStackTrace();
+		}
+		try {
+			user.agregarFigurita(figurita6);
+		} catch (CodigoExistente e) {
+			e.printStackTrace();
+		}
+		try {
+			user.agregarFigurita(figurita7);
+		} catch (CodigoExistente e) {
+			e.printStackTrace();
+		}
+
+		try {
+			user.agregarFigurita(figurita8);
+		} catch (CodigoExistente e) {
+			e.printStackTrace();
+		}
+
+		// me traigo el stock de figuritas
+		List<Figurita> figuritas = ((UsuarioFinal) user).getStockDeFiguritas();
+
+		List<Figurita> figuritasEnDolares = figuritas.stream().map(e -> {
+			Figurita n = new Figurita(e.getNumeroFigurita(), e.getGrupo(), e.getSeleccion(), e.getJugador(),
+					e.getPrecio());
+			n.pasarADolar();
+			return n;
+		}).collect(Collectors.toList());
+		figuritasEnDolares.forEach(x -> System.out.println(x.toString()));
 	}
 }

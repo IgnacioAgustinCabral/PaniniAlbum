@@ -1,5 +1,6 @@
 package cabral.ignacio;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Figurita implements Comparable<Figurita>{
@@ -68,7 +69,10 @@ public class Figurita implements Comparable<Figurita>{
 		this.codigoId = codigoId;
 	}
 
-	
+	public void pasarADolar() {
+		this.setPrecio(this.getPrecio()*300);
+		
+	}
 //	@Override
 //	public String toString() {
 //		return "Figurita [numeroFigurita=" + numeroFigurita + ", grupo=" + grupo + ", seleccion=" + seleccion
@@ -100,4 +104,11 @@ public class Figurita implements Comparable<Figurita>{
 			} return this.getSeleccion().compareTo(o.getSeleccion());
 		}return this.getGrupo().compareTo(o.getGrupo());
 	}
+
+	@Override
+	public String toString() {
+		return "Figurita [numeroFigurita=" + numeroFigurita + ", grupo=" + grupo + ", seleccion=" + seleccion
+				+ ", jugador=" + jugador + ", precio=" + precio + ", codigoId=" + codigoId + "]";
+	}
+	
 }
