@@ -73,12 +73,11 @@ public class Figurita implements Comparable<Figurita>{
 		this.setPrecio(this.getPrecio()*300);
 		
 	}
-//	@Override
-//	public String toString() {
-//		return "Figurita [numeroFigurita=" + numeroFigurita + ", grupo=" + grupo + ", seleccion=" + seleccion
-//				+ ", jugador=" + jugador + ", precio=" + precio + ", codigoId=" + codigoId + "]";
-//	}
-
+	
+	public Double pasarADolar2() {
+		return this.getPrecio()*300;
+	}
+	 
 	@Override
 	public int hashCode() {
 		return Objects.hash(codigoId);
