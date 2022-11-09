@@ -74,7 +74,7 @@ public class Figurita implements Comparable<Figurita>{
 		
 	}
 	
-	public Double pasarADolar2() {
+	public Double pasarADolares() {
 		return this.getPrecio()*300;
 	}
 	 
